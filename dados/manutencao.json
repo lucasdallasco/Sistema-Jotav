@@ -1,0 +1,296 @@
+{
+  "modelos": [
+    "iPhone 7",
+    "iPhone 7 Plus",
+    "iPhone 8",
+    "iPhone 8 Plus",
+    "iPhone X",
+    "iPhone Xs",
+    "iPhone Xs Max",
+    "iPhone Xr",
+    "iPhone 11",
+    "iPhone 11 Pro",
+    "iPhone 11 Pro Max",
+    "iPhone 12 mini",
+    "iPhone 12",
+    "iPhone 12 Pro",
+    "iPhone 12 Pro Max",
+    "iPhone 13 mini",
+    "iPhone 13",
+    "iPhone 13 Pro",
+    "iPhone 13 Pro Max",
+    "iPhone 14",
+    "iPhone 14 Plus",
+    "iPhone 14 Pro",
+    "iPhone 14 Pro Max",
+    "iPhone 15",
+    "iPhone 15 Plus",
+    "iPhone 15 Pro",
+    "iPhone 15 Pro Max",
+    "iPhone 16",
+    "iPhone 16 Plus",
+    "iPhone 16 Pro",
+    "iPhone 16 Pro Max",
+    "iPhone 17",
+    "iPhone Air",
+    "iPhone 17 Pro",
+    "iPhone 17 Pro Max",
+    "iPhone 18 Pro",
+    "iPhone 18 Pro Max",
+    "iPhone Duo"
+  ],
+  "servicos": [
+    {
+      "servico": "Troca de tela",
+      "tipo": "preco",
+      "precos": [
+        {
+          "modelo": "iPhone 7",
+          "preco": 199.9
+        },
+        {
+          "modelo": "iPhone 7 Plus",
+          "preco": 159.0
+        },
+        {
+          "modelo": "iPhone 8",
+          "preco": 219.9
+        },
+        {
+          "modelo": "iPhone 8 Plus",
+          "preco": 169.0
+        },
+        {
+          "modelo": "iPhone X",
+          "preco": 209.0
+        },
+        {
+          "modelo": "iPhone Xs",
+          "preco": 219.0
+        },
+        {
+          "modelo": "iPhone Xs Max",
+          "preco": 259.0
+        },
+        {
+          "modelo": "iPhone Xr",
+          "preco": 199.0
+        },
+        {
+          "modelo": "iPhone 11",
+          "preco": 199.0
+        },
+        {
+          "modelo": "iPhone 11 Pro",
+          "preco": 259.0
+        },
+        {
+          "modelo": "iPhone 11 Pro Max",
+          "preco": 289.0
+        },
+        {
+          "modelo": "iPhone 12 mini",
+          "preco": 259.0
+        },
+        {
+          "modelo": "iPhone 12",
+          "preco": 259.0
+        },
+        {
+          "modelo": "iPhone 12 Pro",
+          "preco": 269.0
+        },
+        {
+          "modelo": "iPhone 12 Pro Max",
+          "preco": 299.0
+        },
+        {
+          "modelo": "iPhone 13 mini",
+          "preco": 289.0
+        },
+        {
+          "modelo": "iPhone 13",
+          "preco": 289.0
+        },
+        {
+          "modelo": "iPhone 13 Pro",
+          "preco": 359.0
+        },
+        {
+          "modelo": "iPhone 13 Pro Max",
+          "preco": 379.0
+        },
+        {
+          "modelo": "iPhone 14",
+          "preco": 319.0
+        },
+        {
+          "modelo": "iPhone 14 Plus",
+          "preco": 359.0
+        },
+        {
+          "modelo": "iPhone 14 Pro",
+          "preco": 339.0
+        },
+        {
+          "modelo": "iPhone 14 Pro Max",
+          "preco": 379.0
+        },
+        {
+          "modelo": "iPhone 15",
+          "preco": 419.0
+        },
+        {
+          "modelo": "iPhone 15 Plus",
+          "preco": 359.0
+        },
+        {
+          "modelo": "iPhone 15 Pro",
+          "preco": 379.0
+        },
+        {
+          "modelo": "iPhone 15 Pro Max",
+          "preco": 419.0
+        },
+        {
+          "modelo": "iPhone 16",
+          "preco": 449.0
+        },
+        {
+          "modelo": "iPhone 16 Plus",
+          "preco": 379.0
+        },
+        {
+          "modelo": "iPhone 16 Pro",
+          "preco": 419.0
+        },
+        {
+          "modelo": "iPhone 16 Pro Max",
+          "preco": 449.0
+        },
+        {
+          "modelo": "iPhone 17",
+          "preco": 489.0
+        },
+        {
+          "modelo": "iPhone 17 Pro",
+          "preco": 509.0
+        },
+        {
+          "modelo": "iPhone 17 Pro Max",
+          "preco": 549.0
+        }
+      ]
+    },
+    {
+      "servico": "Troca de bateria",
+      "tipo": "preco",
+      "precos": [
+        {
+          "modelo": "iPhone 7",
+          "preco": 134.9
+        },
+        {
+          "modelo": "iPhone 7 Plus",
+          "preco": 144.9
+        },
+        {
+          "modelo": "iPhone 8",
+          "preco": 134.9
+        },
+        {
+          "modelo": "iPhone 8 Plus",
+          "preco": 149.9
+        },
+        {
+          "modelo": "iPhone X",
+          "preco": 254.9
+        },
+        {
+          "modelo": "iPhone Xs",
+          "preco": 264.9
+        },
+        {
+          "modelo": "iPhone Xs Max",
+          "preco": 299.9
+        },
+        {
+          "modelo": "iPhone Xr",
+          "preco": 299.99
+        },
+        {
+          "modelo": "iPhone 11",
+          "preco": 309.99
+        },
+        {
+          "modelo": "iPhone 11 Pro",
+          "preco": 374.9
+        },
+        {
+          "modelo": "iPhone 11 Pro Max",
+          "preco": 394.9
+        },
+        {
+          "modelo": "iPhone 12",
+          "preco": 389.9
+        },
+        {
+          "modelo": "iPhone 12 Pro",
+          "preco": 399.99
+        },
+        {
+          "modelo": "iPhone 12 Pro Max",
+          "preco": 559.9
+        },
+        {
+          "modelo": "iPhone 13",
+          "preco": 429.99
+        },
+        {
+          "modelo": "iPhone 13 Pro",
+          "preco": 599.9
+        },
+        {
+          "modelo": "iPhone 13 Pro Max",
+          "preco": 589.99
+        },
+        {
+          "modelo": "iPhone 14",
+          "preco": 449.99
+        },
+        {
+          "modelo": "iPhone 14 Pro",
+          "preco": 589.99
+        },
+        {
+          "modelo": "iPhone 14 Pro Max",
+          "preco": 699.99
+        }
+      ]
+    },
+    {
+      "servico": "Conector de carga",
+      "tipo": "orcamento"
+    },
+    {
+      "servico": "Câmera traseira",
+      "tipo": "orcamento"
+    },
+    {
+      "servico": "Vidro traseiro",
+      "tipo": "orcamento"
+    },
+    {
+      "servico": "Face ID",
+      "tipo": "orcamento"
+    },
+    {
+      "servico": "Não liga ou reinicia sozinho",
+      "tipo": "orcamento"
+    },
+    {
+      "servico": "Caiu na água",
+      "tipo": "orcamento"
+    }
+  ]
+}

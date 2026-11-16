@@ -1,0 +1,44 @@
+{
+  "perguntas": [
+    {
+      "pergunta": "Os seminovos são confiáveis?",
+      "resposta": "Todo seminovo passa pela conferência da Jotav antes de ir para a vitrine: procedência, bateria, tela, câmeras, Face ID, som e carregamento. E sai com 3 meses de garantia da loja."
+    },
+    {
+      "pergunta": "Como funciona a garantia?",
+      "resposta": "Lacrados têm 1 ano de garantia Apple. Seminovos e aparelhos de vitrine têm 3 meses de garantia Jotav. Consertos têm 6 meses de garantia."
+    },
+    {
+      "pergunta": "O que é um aparelho de vitrine?",
+      "resposta": "É um aparelho de mostruário, revisado pela loja, com 3 meses de garantia Jotav e preço especial."
+    },
+    {
+      "pergunta": "O que vem junto com o aparelho?",
+      "resposta": "Seminovos e aparelhos de vitrine acompanham capa, película e carregador."
+    },
+    {
+      "pergunta": "Os preços do site são à vista?",
+      "resposta": "Sim. Também parcelamos em até 12x no cartão, com a taxa da maquininha."
+    },
+    {
+      "pergunta": "Como funciona o upgrade?",
+      "resposta": "Aceitamos qualquer iPhone, inclusive com defeito. Você manda as fotos pelo WhatsApp para uma pré-avaliação, e o valor final é definido na inspeção, com o aparelho na loja. Esse valor entra como parte do pagamento do próximo."
+    },
+    {
+      "pergunta": "Não achei o modelo que quero. E agora?",
+      "resposta": "Fale com a gente pelo WhatsApp. A vitrine mostra uma seleção, e buscamos o modelo para você."
+    },
+    {
+      "pergunta": "Vocês enviam para outras cidades?",
+      "resposta": "Sim, enviamos para todo o Brasil, com frete a consultar."
+    },
+    {
+      "pergunta": "Como funciona a manutenção?",
+      "resposta": "O diagnóstico é gratuito. Você vê o preço inicial aqui no site, confirmamos com o aparelho em mãos, e todo conserto tem 6 meses de garantia."
+    },
+    {
+      "pergunta": "Como funciona a blindagem?",
+      "resposta": "A película é cortada sob medida na nossa máquina e aplicada na hora, em até 15 minutos. Atende todos os aparelhos, a partir de R$ 79,90."
+    }
+  ]
+}

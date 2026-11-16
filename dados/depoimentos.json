@@ -1,0 +1,34 @@
+{
+  "depoimentos": [
+    {
+      "nome": "Mariana Oliveira",
+      "tema": "Atendimento",
+      "texto": "Atendimento excelente! Equipe atenciosa, loja organizada e ambiente super agradável. Me senti muito bem recebida!"
+    },
+    {
+      "nome": "Rafael Santos",
+      "tema": "Qualidade",
+      "texto": "Meu iPhone veio em perfeito estado, tudo funcionando direitinho. Muito satisfeito com a compra!"
+    },
+    {
+      "nome": "Camila Ferreira",
+      "tema": "Preço",
+      "texto": "Ótimos preços e condições! Pesquisei bastante e encontrei na Jotav um excelente custo-benefício."
+    },
+    {
+      "nome": "Pedro Henrique",
+      "tema": "Confiança",
+      "texto": "Já conheço o João Victor há um tempo e sempre faço questão de comprar com ele. É uma confiança que já vem de anos!"
+    },
+    {
+      "nome": "Juliana Costa",
+      "tema": "Manutenção",
+      "texto": "Levei meu aparelho para manutenção e ficou perfeito! Serviço cuidadoso, rápido e com ótimo atendimento."
+    },
+    {
+      "nome": "André Martins",
+      "tema": "Fidelidade",
+      "texto": "Essa já é minha terceira compra na Jotav! Faço upgrade do meu iPhone todo ano e continuo escolhendo a loja pela confiança e qualidade."
+    }
+  ]
+}

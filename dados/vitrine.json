@@ -1,0 +1,229 @@
+{
+  "produtos": [
+    {
+      "nome": "iPhone 18 Pro Max",
+      "marca": "Apple",
+      "categoria": "iphone",
+      "condicao": "lacrado",
+      "destaque": true,
+      "novidade": false,
+      "consultar_preco": false,
+      "observacao": "",
+      "imagem": "/img/produtos/p_18pm.webp",
+      "foto_real": false,
+      "cores": [
+        {
+          "nome": "Bordô",
+          "cor": "#5A1F2E"
+        },
+        {
+          "nome": "Glacial",
+          "cor": "#C9DDE8"
+        },
+        {
+          "nome": "Prateado",
+          "cor": "#E3E4E5"
+        },
+        {
+          "nome": "Preto",
+          "cor": "#1C1C1E"
+        }
+      ],
+      "capacidades": [
+        {
+          "capacidade": "256 GB",
+          "preco": 12499.9
+        },
+        {
+          "capacidade": "1 TB"
+        },
+        {
+          "capacidade": "Outra"
+        }
+      ]
+    },
+    {
+      "nome": "iPhone 17 Pro Max",
+      "marca": "Apple",
+      "categoria": "iphone",
+      "condicao": "lacrado",
+      "destaque": true,
+      "novidade": false,
+      "consultar_preco": false,
+      "observacao": "",
+      "imagem": "/img/produtos/p_17pm.webp",
+      "foto_real": false,
+      "cores": [
+        {
+          "nome": "Laranja-cósmico",
+          "cor": "#E8742A"
+        },
+        {
+          "nome": "Azul-intenso",
+          "cor": "#2E3B55"
+        },
+        {
+          "nome": "Prateado",
+          "cor": "#E3E4E5"
+        }
+      ],
+      "capacidades": [
+        {
+          "capacidade": "256 GB",
+          "preco": 7999.9
+        },
+        {
+          "capacidade": "1 TB"
+        },
+        {
+          "capacidade": "Outra"
+        }
+      ]
+    },
+    {
+      "nome": "JBL Boombox 4",
+      "marca": "JBL",
+      "categoria": "jbl",
+      "condicao": "lacrado",
+      "destaque": true,
+      "novidade": false,
+      "consultar_preco": true,
+      "observacao": "",
+      "imagem": "/img/produtos/p_jbl.webp",
+      "foto_real": false,
+      "cores": [
+        {
+          "nome": "Preta",
+          "cor": "#1D1D1F"
+        },
+        {
+          "nome": "Azul",
+          "cor": "#2B4C8C"
+        },
+        {
+          "nome": "Branca",
+          "cor": "#F2F2F2"
+        },
+        {
+          "nome": "Camuflada",
+          "cor": "#5B6145"
+        }
+      ],
+      "capacidades": []
+    },
+    {
+      "nome": "Apple Watch SE 3",
+      "marca": "Apple",
+      "categoria": "watch",
+      "condicao": "lacrado",
+      "destaque": true,
+      "novidade": false,
+      "consultar_preco": true,
+      "observacao": "GPS, 40 mm",
+      "imagem": "/img/produtos/p_watch.webp",
+      "foto_real": false,
+      "cores": [
+        {
+          "nome": "Meia-noite",
+          "cor": "#232A33"
+        },
+        {
+          "nome": "Estelar",
+          "cor": "#E9E2D6"
+        }
+      ],
+      "capacidades": []
+    },
+    {
+      "nome": "iPhone Duo",
+      "marca": "Apple",
+      "categoria": "iphone",
+      "condicao": "lacrado",
+      "destaque": false,
+      "novidade": true,
+      "consultar_preco": true,
+      "observacao": "",
+      "imagem": "/img/produtos/p_duo.webp",
+      "foto_real": false,
+      "cores": [
+        {
+          "nome": "Branco",
+          "cor": "#F2F2F2"
+        }
+      ],
+      "capacidades": []
+    },
+    {
+      "nome": "iPhone 14 Pro",
+      "marca": "Apple",
+      "categoria": "iphone",
+      "condicao": "vitrine",
+      "destaque": false,
+      "novidade": false,
+      "consultar_preco": false,
+      "observacao": "",
+      "imagem": "/img/produtos/v_14p.webp",
+      "foto_real": true,
+      "cores": [
+        {
+          "nome": "Roxo-profundo",
+          "cor": "#4B3F5C"
+        }
+      ],
+      "capacidades": [
+        {
+          "capacidade": "128 GB",
+          "preco": 2499.9
+        }
+      ]
+    },
+    {
+      "nome": "iPhone 13",
+      "marca": "Apple",
+      "categoria": "iphone",
+      "condicao": "vitrine",
+      "destaque": false,
+      "novidade": false,
+      "consultar_preco": false,
+      "observacao": "",
+      "imagem": "/img/produtos/v_13.webp",
+      "foto_real": true,
+      "cores": [
+        {
+          "nome": "Rosa",
+          "cor": "#F4D3D8"
+        }
+      ],
+      "capacidades": [
+        {
+          "capacidade": "128 GB",
+          "preco": 1999.9
+        }
+      ]
+    },
+    {
+      "nome": "iPhone 11",
+      "marca": "Apple",
+      "categoria": "iphone",
+      "condicao": "vitrine",
+      "destaque": false,
+      "novidade": false,
+      "consultar_preco": false,
+      "observacao": "",
+      "imagem": "/img/produtos/v_11.webp",
+      "foto_real": true,
+      "cores": [
+        {
+          "nome": "Preto",
+          "cor": "#1D1D1F"
+        }
+      ],
+      "capacidades": [
+        {
+          "capacidade": "64 GB",
+          "preco": 999.9
+        }
+      ]
+    }
+  ]
+}

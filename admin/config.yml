@@ -1,0 +1,160 @@
+# Painel da Jotav (Decap CMS). Login por e-mail e senha (Netlify Identity).
+backend:
+  name: git-gateway
+  branch: main
+  commit_messages:
+    update: "Painel: atualiza {{slug}}"
+
+locale: pt
+site_url: https://jotaviphones.com.br
+display_url: https://jotaviphones.com.br
+logo_url: /img/produtos/p_18pm.webp
+media_folder: img/produtos
+public_folder: /img/produtos
+
+collections:
+  - name: conteudo
+    label: Site da Jotav
+    editor: { preview: false }
+    files:
+
+      - name: vitrine
+        label: Vitrine (aparelhos)
+        file: dados/vitrine.json
+        fields:
+          - name: produtos
+            label: Aparelhos
+            label_singular: Aparelho
+            widget: list
+            summary: "{{fields.nome}} · {{fields.condicao}}"
+            fields:
+              - { name: nome, label: Nome, widget: string, hint: "Ex.: iPhone 17 Pro Max" }
+              - { name: marca, label: Marca, widget: select, options: [Apple, JBL, Xiaomi, Outra], default: Apple }
+              - name: categoria
+                label: Categoria
+                widget: select
+                options:
+                  - { label: iPhone, value: iphone }
+                  - { label: Apple Watch, value: watch }
+                  - { label: AirPods, value: airpods }
+                  - { label: JBL, value: jbl }
+                  - { label: Xiaomi, value: xiaomi }
+                  - { label: Acessórios, value: acessorios }
+              - name: condicao
+                label: Condição
+                widget: select
+                options:
+                  - { label: Lacrado, value: lacrado }
+                  - { label: Vitrine, value: vitrine }
+                  - { label: Seminovo, value: seminovo }
+              - { name: imagem, label: Foto, widget: image, required: false, hint: "Foto em PNG ou WebP, fundo branco, até 1 MB." }
+              - { name: foto_real, label: "É foto real da loja (preenche o card)?", widget: boolean, default: false, required: false }
+              - { name: destaque, label: "Destaque (aparece primeiro)", widget: boolean, default: false, required: false }
+              - { name: novidade, label: "Novidade (aba Novidades)", widget: boolean, default: false, required: false }
+              - { name: consultar_preco, label: "Mostrar \"Consulte\" no lugar do preço", widget: boolean, default: false, required: false }
+              - { name: observacao, label: "Observação curta", widget: string, required: false, hint: "Ex.: GPS, 40 mm" }
+              - name: cores
+                label: Cores
+                label_singular: Cor
+                widget: list
+                required: false
+                summary: "{{fields.nome}}"
+                fields:
+                  - { name: nome, label: Nome da cor, widget: string }
+                  - { name: cor, label: Cor (bolinha), widget: color, default: "#1D1D1F" }
+              - name: capacidades
+                label: Capacidades e preços
+                label_singular: Capacidade
+                widget: list
+                required: false
+                summary: "{{fields.capacidade}} · R$ {{fields.preco}}"
+                hint: "Deixe o preço vazio para mostrar \"Consulte\". Use \"Outra\" para a opção de falar no WhatsApp."
+                fields:
+                  - { name: capacidade, label: Capacidade, widget: string, hint: "Ex.: 256 GB, 1 TB, Outra" }
+                  - { name: preco, label: Preço à vista (R$), widget: number, value_type: float, step: 0.01, required: false }
+
+      - name: manutencao
+        label: Manutenção (preços)
+        file: dados/manutencao.json
+        fields:
+          - name: modelos
+            label: Modelos na lista do site
+            label_singular: Modelo
+            widget: list
+            field: { name: modelo, label: Modelo, widget: string }
+          - name: servicos
+            label: Serviços
+            label_singular: Serviço
+            widget: list
+            summary: "{{fields.servico}}"
+            fields:
+              - { name: servico, label: Serviço, widget: string }
+              - name: tipo
+                label: Como mostrar o valor
+                widget: select
+                options:
+                  - { label: "Preço por modelo", value: preco }
+                  - { label: "Orçamento na loja", value: orcamento }
+              - name: precos
+                label: Preços por modelo
+                label_singular: Preço
+                widget: list
+                required: false
+                summary: "{{fields.modelo}} · R$ {{fields.preco}}"
+                fields:
+                  - { name: modelo, label: Modelo, widget: string }
+                  - { name: preco, label: "A partir de (R$)", widget: number, value_type: float, step: 0.01, required: false }
+
+      - name: blindagem
+        label: Blindagem
+        file: dados/blindagem.json
+        fields:
+          - { name: preco, label: "A partir de (R$)", widget: number, value_type: float, step: 0.01 }
+          - { name: tempo, label: Tempo de aplicação, widget: string }
+          - { name: aparelhos, label: Aparelhos atendidos, widget: string }
+          - { name: acabamentos, label: Acabamentos, widget: list, field: { name: acabamento, label: Acabamento, widget: string } }
+
+      - name: loja
+        label: Dados da loja
+        file: dados/loja.json
+        fields:
+          - { name: whatsapp, label: "WhatsApp (só números, com 55 e DDD)", widget: string }
+          - { name: whatsapp_exibir, label: WhatsApp como aparece no site, widget: string }
+          - { name: instagram, label: Instagram (sem @), widget: string }
+          - { name: endereco, label: Endereço, widget: string }
+          - { name: horarios, label: Horários, widget: list, field: { name: horario, label: Horário, widget: string } }
+          - { name: mapa, label: Link do Google Maps, widget: string }
+          - { name: avaliar_google, label: Link para avaliar no Google, widget: string, required: false, hint: "Enquanto estiver vazio, o botão não aparece." }
+          - { name: parcelamento, label: Texto de parcelamento, widget: string }
+          - { name: envio, label: Texto de envio, widget: string }
+          - { name: garantia_lacrado, label: Garantia dos lacrados, widget: string }
+          - { name: garantia_seminovo, label: Garantia de seminovos e vitrine, widget: string }
+          - { name: kit_texto, label: Texto do que acompanha, widget: string }
+          - { name: kit, label: Itens que acompanham, widget: list, field: { name: item, label: Item, widget: string } }
+
+      - name: depoimentos
+        label: Avaliações
+        file: dados/depoimentos.json
+        fields:
+          - name: depoimentos
+            label: Avaliações
+            label_singular: Avaliação
+            widget: list
+            summary: "{{fields.nome}}"
+            fields:
+              - { name: nome, label: Nome, widget: string }
+              - { name: tema, label: Tema, widget: string, hint: "Ex.: Atendimento" }
+              - { name: texto, label: Texto, widget: text }
+
+      - name: faq
+        label: Perguntas frequentes
+        file: dados/faq.json
+        fields:
+          - name: perguntas
+            label: Perguntas
+            label_singular: Pergunta
+            widget: list
+            summary: "{{fields.pergunta}}"
+            fields:
+              - { name: pergunta, label: Pergunta, widget: string }
+              - { name: resposta, label: Resposta, widget: text }
