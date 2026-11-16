@@ -572,7 +572,7 @@ h2{max-width:22ch}
   .loja .lead{margin-top:0}
 }
 </style>
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>if(/(invite|recovery)_token=/.test(location.hash))location.replace("/admin/"+location.hash);</script>
 </head>
 <body>
 
@@ -850,7 +850,7 @@ var IMGS = {};
 async function carregarDados(){
   const ler=async n=>{const r=await fetch("/dados/"+n+".json",{cache:"no-cache"}); if(!r.ok) throw new Error(n); return r.json();};
   const [vit,man,loja,bl,dep,faq]=await Promise.all(["vitrine","manutencao","loja","blindagem","depoimentos","faq"].map(ler));
-  const produtos=(vit.produtos||[]).map(p=>{
+  const produtos=(vit.produtos||[]).filter(p=>p.ativo!==false).map(p=>{
     const img=p.imagem||"";
     if(img && !IMGS[img]) IMGS[img]='<img src="'+img+'" alt="'+String(p.nome).replace(/"/g,"&quot;")+'" loading="lazy">';
     return {nome:p.nome,marca:p.marca||"",cat:p.categoria,cond:p.condicao,destaque:!!p.destaque,novidade:!!p.novidade,
@@ -1007,7 +1007,7 @@ bindWA(document); render();
 })();
 </script>
 <script>
-if(window.netlifyIdentity){netlifyIdentity.on("init",u=>{if(!u){netlifyIdentity.on("login",()=>{document.location.href="/admin/";});}});}
+
 </script>
 </body>
 </html>

@@ -40,7 +40,8 @@
         {
           "capacidade": "Outra"
         }
-      ]
+      ],
+      "ordem": 10
     },
     {
       "nome": "iPhone 17 Pro Max",
@@ -78,7 +79,8 @@
         {
           "capacidade": "Outra"
         }
-      ]
+      ],
+      "ordem": 20
     },
     {
       "nome": "JBL Boombox 4",
@@ -109,7 +111,8 @@
           "cor": "#5B6145"
         }
       ],
-      "capacidades": []
+      "capacidades": [],
+      "ordem": 30
     },
     {
       "nome": "Apple Watch SE 3",
@@ -132,7 +135,8 @@
           "cor": "#E9E2D6"
         }
       ],
-      "capacidades": []
+      "capacidades": [],
+      "ordem": 40
     },
     {
       "nome": "iPhone Duo",
@@ -151,7 +155,8 @@
           "cor": "#F2F2F2"
         }
       ],
-      "capacidades": []
+      "capacidades": [],
+      "ordem": 50
     },
     {
       "nome": "iPhone 14 Pro",
@@ -175,7 +180,8 @@
           "capacidade": "128 GB",
           "preco": 2499.9
         }
-      ]
+      ],
+      "ordem": 60
     },
     {
       "nome": "iPhone 13",
@@ -199,7 +205,8 @@
           "capacidade": "128 GB",
           "preco": 1999.9
         }
-      ]
+      ],
+      "ordem": 70
     },
     {
       "nome": "iPhone 11",
@@ -223,7 +230,8 @@
           "capacidade": "64 GB",
           "preco": 999.9
         }
-      ]
+      ],
+      "ordem": 80
     }
   ]
 }
