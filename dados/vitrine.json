@@ -181,7 +181,8 @@
           "preco": 2499.9
         }
       ],
-      "ordem": 60
+      "ordem": 60,
+      "ativo": false
     },
     {
       "nome": "iPhone 13",
