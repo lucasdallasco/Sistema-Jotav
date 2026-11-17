@@ -7,7 +7,12 @@
 <meta name="theme-color" content="#000000">
 <title>Painel Jotav</title>
 <link rel="icon" href="/admin/logo.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="/admin/logo.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/admin/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Painel Jotav">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">
@@ -151,6 +156,13 @@ body.sujo .demo{bottom:100px}
 @keyframes pulso{50%{opacity:.45;transform:scale(.94)}}
 .sair{display:block;margin:28px auto 0;background:none;border:0;color:var(--suave);font-size:14px;cursor:pointer;text-decoration:underline}
 .btn[disabled]{opacity:.55;cursor:default}
+.galeria{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.gfoto{position:relative;aspect-ratio:3/4;border-radius:18px;overflow:hidden;background:#E5E5EA}
+.gfoto img{width:100%;height:100%;object-fit:cover;display:block}
+.gfoto .ctl{position:absolute;left:8px;right:8px;bottom:8px;display:flex;gap:6px;justify-content:space-between}
+.gfoto .ctl button{width:38px;height:38px;border-radius:50%;border:0;background:rgba(255,255,255,.92);cursor:pointer;font-size:16px;color:var(--tinta);box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.gfoto .ctl .del{color:#C0362C}
+.gfoto .n{position:absolute;top:8px;left:8px;background:rgba(0,0,0,.6);color:#fff;font-size:12px;font-weight:600;border-radius:999px;padding:3px 9px}
 .quem{font-size:13px;color:var(--suave);text-align:center;margin-top:8px}
 </style>
 </head>
@@ -158,13 +170,14 @@ body.sujo .demo{bottom:100px}
 <div id="root"></div>
 <div class="toast" id="toast"><i id="toast-i">✓</i><span id="toast-t"></span></div>
 <input type="file" id="arquivo" accept="image/*" hidden>
+<input type="file" id="arquivos" accept="image/*" multiple hidden>
 
 <script>
 /* ===== Configuração ===== */
 const ID = "/.netlify/identity";
 const GIT = "/.netlify/git/github";
 const BRANCH = "main";
-const ARQ = {vitrine:"dados/vitrine.json", manutencao:"dados/manutencao.json", blindagem:"dados/blindagem.json", loja:"dados/loja.json"};
+const ARQ = {vitrine:"dados/vitrine.json", manutencao:"dados/manutencao.json", blindagem:"dados/blindagem.json", loja:"dados/loja.json", clientes:"dados/clientes.json"};
 const LOGO = "/admin/logo.svg";
 const SITE = location.origin;
 
@@ -178,6 +191,7 @@ const ICON = {
   shield:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1D1D1F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="6.5" y="2.5" width="11" height="19" rx="2.8"/><path d="M9.5 10l4.5-4.5M9.5 14.5l6-6"/></svg>',
   store:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1D1D1F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 9.5L5 4.5h14l1.5 5"/><path d="M4.5 9.5v10h15v-10M3.5 9.5h17M9.5 19.5v-5h5v5"/></svg>',
   search:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6E6E73" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>',
+  camera:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1D1D1F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6.5" width="18" height="13.5" rx="3"/><path d="M8.5 6.5l1.5-2.5h4l1.5 2.5"/><circle cx="12" cy="13" r="3.5"/></svg>',
   plus:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>'
 };
 const esc = s => String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -242,7 +256,8 @@ function serializar(st){
     vitrine: JSON.stringify({...outrosVitrine, produtos:st.aparelhos.map(limpa)},null,2)+"\n",
     manutencao: JSON.stringify(limpa(st.manutencao),null,2)+"\n",
     blindagem: JSON.stringify(limpa(st.blindagem),null,2)+"\n",
-    loja: JSON.stringify(limpa(st.loja),null,2)+"\n"
+    loja: JSON.stringify(limpa(st.loja),null,2)+"\n",
+    clientes: JSON.stringify(limpa(st.clientes),null,2)+"\n"
   };
 }
 async function carregar(){
@@ -250,8 +265,10 @@ async function carregar(){
   try{
     usuario = await idAuth("/user");
     const [vit,man,bl,lj]=await Promise.all([ARQ.vitrine,ARQ.manutencao,ARQ.blindagem,ARQ.loja].map(lerJSON));
+    let cl; try{ cl=await lerJSON(ARQ.clientes); }catch(_){ cl={fotos:[]}; }
+    cl.fotos=(cl.fotos||[]).map(x=>({...x,_img:x.imagem}));
     const {produtos,...resto}=vit; outrosVitrine=resto;
-    base={aparelhos:(produtos||[]).map(p=>({...p,_img:p.imagem||""})), manutencao:man, blindagem:bl, loja:lj};
+    base={aparelhos:(produtos||[]).map(p=>({...p,_img:p.imagem||""})), manutencao:man, blindagem:bl, loja:lj, clientes:cl};
     estado=clone(base); original=serializar(base); fotos={}; marcarSujo(false);
     ir("inicio");
   }catch(e){
@@ -325,6 +342,7 @@ T.inicio = () => {
     <button class="tile big" data-go="vitrine"><div class="tx"><b>Vitrine</b><span>${vis} ${vis===1?"aparelho":"aparelhos"} no site</span></div><div class="thumbs">${thumbs}</div><span class="chev">${ICON.chev}</span></button>
     <button class="tile" data-go="manutencao"><div class="ic">${ICON.wrench}</div><b>Manutenção</b><span>Preços por modelo</span></button>
     <button class="tile" data-go="blindagem"><div class="ic">${ICON.shield}</div><b>Blindagem</b><span>A partir de R$ ${brl(estado.blindagem.preco)}</span></button>
+    <button class="tile big" data-go="clientes"><div class="ic">${ICON.camera}</div><div class="tx"><b>Fotos de clientes</b><span>${estado.clientes.fotos.length} ${estado.clientes.fotos.length===1?"foto":"fotos"} na faixa do site</span></div><div class="thumbs">${estado.clientes.fotos.slice(0,3).map(x=>`<img src="${esc(x._img)}" alt="" style="object-fit:cover">`).join("")}</div><span class="chev">${ICON.chev}</span></button>
     <button class="tile big" data-go="loja"><div class="ic">${ICON.store}</div><div class="tx"><b>Dados da loja</b><span>WhatsApp, horários, garantia</span></div><span class="chev">${ICON.chev}</span></button>
   </div>
   <p class="quem">Conectado como ${esc((usuario&&usuario.email)||"")}</p>
@@ -408,6 +426,13 @@ T.manutencao = () => {
   </div>`;
 };
 
+T.clientes = () => { const F=estado.clientes.fotos; return topo("Fotos de clientes","inicio")+`<div class="wrap">
+  <p class="lead" style="margin:0 4px">Aparecem na faixa que passa sozinha na parte de avaliações. Use fotos em pé (vertical), com o cliente autorizando.</p>
+  <button class="btn pri" style="width:100%;margin-top:16px;padding:16px" data-addcli="1">${ICON.plus} Adicionar fotos</button>
+  <div class="galeria">${F.map((x,k)=>`<div class="gfoto"><img src="${esc(x._img)}" alt=""><span class="n">${k+1}º</span><div class="ctl"><button data-climv="${k}" data-d="-1" aria-label="Mover para antes">←</button><button class="del" data-clidel="${k}" aria-label="Remover foto">×</button><button data-climv="${k}" data-d="1" aria-label="Mover para depois">→</button></div></div>`).join("")}</div>
+  ${F.length?"":'<p class="lead" style="text-align:center;margin-top:24px">Nenhuma foto ainda.</p>'}
+  </div>`; };
+
 T.blindagem = () => { const b=estado.blindagem; return topo("Blindagem","inicio")+`<div class="wrap"><div class="card">
   <div class="field"><label class="l">A partir de</label><div class="money"><span>R$</span><input class="inp" inputmode="decimal" data-b="preco" value="${brl(b.preco)}"></div></div>
   <div class="field"><label class="l">Tempo de aplicação</label><input class="inp" data-b="tempo" value="${esc(b.tempo)}"></div>
@@ -435,7 +460,7 @@ function marcarSujo(v=true){ sujo=v; const s=document.getElementById("save"); if
 function verificarSujo(){ marcarSujo(JSON.stringify(serializar(estado))!==JSON.stringify(original) || Object.keys(fotosEmUso()).length>0); }
 function ir(n){ tela={nome:n}; busca=""; rascunho=null; window.scrollTo(0,0); render(); }
 function toast(t,erro){ const el=document.getElementById("toast"); el.classList.toggle("erro",!!erro); document.getElementById("toast-i").textContent=erro?"!":"✓"; document.getElementById("toast-t").textContent=t; el.classList.add("show"); clearTimeout(toast._t); toast._t=setTimeout(()=>el.classList.remove("show"),erro?6000:3600); }
-function fotosEmUso(){ const usadas=new Set(estado.aparelhos.map(p=>(p.imagem||"").replace(/^\//,""))); const o={}; for(const k in fotos) if(usadas.has(k)) o[k]=fotos[k]; return o; }
+function fotosEmUso(){ const usadas=new Set([...estado.aparelhos,...estado.clientes.fotos].map(p=>(p.imagem||"").replace(/^\//,""))); const o={}; for(const k in fotos) if(usadas.has(k)) o[k]=fotos[k]; return o; }
 
 /* ===== Foto ===== */
 const inputArq=document.getElementById("arquivo");
@@ -457,6 +482,17 @@ inputArq.addEventListener("change",async()=>{
     fotos[path]=d.split(",")[1]; rascunho.imagem="/"+path; rascunho._img=d;
     marcarSujo(); render();
   }catch(e){ toast(e.message,true); }
+});
+
+const inputArqs=document.getElementById("arquivos");
+inputArqs.addEventListener("change",async()=>{
+  const fs=[...inputArqs.files]; inputArqs.value=""; if(!fs.length) return;
+  for(const f of fs){
+    try{ const {d,ext}=await reduzir(f,1100); const path=`img/clientes/cliente-${Date.now().toString(36)}${Math.random().toString(36).slice(2,5)}.${ext}`;
+      fotos[path]=d.split(",")[1]; estado.clientes.fotos.unshift({imagem:"/"+path,descricao:"Cliente da Jotav",_img:d}); }
+    catch(e){ toast(e.message,true); }
+  }
+  marcarSujo(); render();
 });
 
 /* ===== Publicar ===== */
@@ -532,6 +568,9 @@ root.addEventListener("click",e=>{
   if(d.coradd){ const n=document.getElementById("cor-nome").value.trim(); if(!n) return; (rascunho.cores=rascunho.cores||[]).push({nome:n,cor:document.getElementById("cor-hex").value}); marcarSujo(); render(); return; }
   if(d.mover){ const A=estado.aparelhos,i=A.indexOf(rascunho),j=i+(+d.mover); if(j<0||j>=A.length) return; [A[i],A[j]]=[A[j],A[i]]; verificarSujo(); render(); return; }
   if(d.foto){ inputArq.click(); return; }
+  if(d.addcli){ inputArqs.click(); return; }
+  if(d.clidel!==undefined){ if(!confirm("Remover esta foto do site?")) return; estado.clientes.fotos.splice(+d.clidel,1); verificarSujo(); render(); return; }
+  if(d.climv!==undefined){ const A=estado.clientes.fotos,i=+d.climv,j=i+(+d.d); if(j<0||j>=A.length) return; [A[i],A[j]]=[A[j],A[i]]; verificarSujo(); render(); return; }
   if(d.apagar){ if(!confirm("Apagar "+(rascunho.nome||"este aparelho")+"? Para esconder sem apagar, use “Mostrar no site”.")) return; estado.aparelhos.splice(estado.aparelhos.indexOf(rascunho),1); rascunho=null; tela={nome:"vitrine"}; verificarSujo(); render(); return; }
   if(d.serv!==undefined){ mServ=+d.serv; busca=""; render(); return; }
   if(d.tipo){ const s=estado.manutencao.servicos[mServ]; s.tipo = s.tipo==="preco"?"orcamento":"preco"; if(s.tipo==="preco"&&!s.precos) s.precos=[]; verificarSujo(); render(); return; }

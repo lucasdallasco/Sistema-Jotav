@@ -3,6 +3,10 @@
 <head>
 <meta charset="utf-8">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSItMiAtMiA1MTYgNTE2IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iMTE1IiBmaWxsPSIjMDAwIi8+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoODQuMCwxOTEuMSkgc2NhbGUoMS4zMTMwKSI+PHBhdGggZD0iTTkuNSwwIEg3NSBMMTA2LDQ0LjcgVjEwNyBIMjQgQTI0LDI0IDAgMCAxIDAsODMgVjcyIFEwLDY4IDQsNjggSDI4IFEzMiw2OCAzMiw3MiBWNzkgUTMyLDgzIDM2LDgzIEg3NC41IFYyNCBIOS41IFoiIGZpbGw9IiNFOUU5RUIiLz48cGF0aCBkPSJNNzksMCBIMTE5IEwxNzEsNzYgTDIyNCwwIEgyNjIgTDE4OCwxMDggSDE1NCBaIiBmaWxsPSIjRkM2NzAxIi8+PC9nPjwvc3ZnPg==">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="apple-mobile-web-app-title" content="Jotav">
+<meta name="theme-color" content="#000000">
 <meta property="og:title" content="Jotav iPhones | iPhones em Simões Filho">
 <meta property="og:description" content="iPhones lacrados e de vitrine, manutenção, blindagem e upgrade. Shopping Vivaz, Simões Filho. Enviamos para todo o Brasil.">
 <meta property="og:type" content="website">
@@ -571,6 +575,23 @@ h2{max-width:22ch}
   .loja .ltop h2{font-size:24px;line-height:1.15}
   .loja .lead{margin-top:0}
 }
+
+/* v5: selo do Netlify, visual da blindagem e hero */
+.hero.dark .hero-img img{mix-blend-mode:lighten}
+.bvis{background:none;overflow:visible}
+.bvis::before{content:"";position:absolute;inset:0;background:radial-gradient(closest-side,rgba(255,255,255,.11),rgba(255,255,255,0));pointer-events:none}
+.bvis svg{width:31%;height:auto;position:relative}
+.wa-fab{bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+.wa-fab .wa-ico{display:none}
+@media (max-width:640px){
+  body{padding-bottom:env(safe-area-inset-bottom,0px)}
+  .mbar{display:none!important}
+  .bvis{aspect-ratio:1;width:100%;max-width:400px;margin:0 auto}
+  .bvis svg{width:31%}
+  .wa-fab{display:flex!important;right:16px;bottom:calc(76px + env(safe-area-inset-bottom,0px));width:60px;height:60px;padding:0!important;gap:0;justify-content:center;border-radius:50%}
+  .wa-fab .ava,.wa-fab .wa-txt{display:none}
+  .wa-fab .wa-ico{display:block}
+}
 </style>
 <script>if(/(invite|recovery)_token=/.test(location.hash))location.replace("/admin/"+location.hash);</script>
 </head>
@@ -817,7 +838,7 @@ h2{max-width:22ch}
 <path d="M162,230 Q163,236 167,237 M238,230 Q237,236 233,237" fill="none" stroke="#A9704C" stroke-width="3" stroke-linecap="round"/>
 <g transform="translate(250,262) rotate(-6)"><path d="M10,150 L22,92 H86 L96,150 Z" fill="#111111"/><rect x="8" y="34" width="82" height="66" rx="24" fill="#C88B63"/><path d="M14,46 C10,20 22,-2 38,-2 C52,-2 56,12 50,28 L46,40 Z" fill="#C88B63"/><path d="M26,58 Q48,52 84,58 M24,76 Q48,70 84,76" fill="none" stroke="#A9704C" stroke-width="3.5" stroke-linecap="round"/><path d="M50,28 Q52,36 46,42" fill="none" stroke="#A9704C" stroke-width="3" stroke-linecap="round"/></g>
 <g transform="translate(232,348) scale(.17)"><path d="M9.5,0 H75 L106,44.7 V107 H24 A24,24 0 0 1 0,83 V72 Q0,68 4,68 H28 Q32,68 32,72 V79 Q32,83 36,83 H74.5 V24 H9.5 Z" fill="#E9E9EB"/><path d="M79,0 H119 L171,76 L224,0 H262 L188,108 H154 Z" fill="#FC6701"/></g></svg></span>Fale com a Jotav</a></nav>
-<a class="wa-fab" data-wa="Olá! Vim pelo site da Jotav." href="#"><span class="ava" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="40 30 330 330"><rect x="40" y="30" width="330" height="330" fill="#F5F5F7"/><path d="M40,400 C46,350 82,322 140,312 L170,306 L230,306 L260,312 C318,322 354,350 360,400 Z" fill="#111111"/>
+<a class="wa-fab" aria-label="Falar com a Jotav no WhatsApp" data-wa="Olá! Vim pelo site da Jotav." href="#"><span class="ava" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="40 30 330 330"><rect x="40" y="30" width="330" height="330" fill="#F5F5F7"/><path d="M40,400 C46,350 82,322 140,312 L170,306 L230,306 L260,312 C318,322 354,350 360,400 Z" fill="#111111"/>
 <path d="M170,256 H230 V302 Q200,326 170,302 Z" fill="#A9704C"/>
 <path d="M168,306 Q200,334 232,306" fill="none" stroke="#2A2A2E" stroke-width="7" stroke-linecap="round"/>
 <ellipse cx="116" cy="182" rx="16" ry="26" fill="#C88B63"/><ellipse cx="120" cy="184" rx="7" ry="14" fill="#A9704C"/>
@@ -840,7 +861,7 @@ h2{max-width:22ch}
 <path d="M166,234 Q200,243 234,234" fill="none" stroke="#8E4F42" stroke-width="3.2" stroke-linecap="round"/>
 <path d="M162,230 Q163,236 167,237 M238,230 Q237,236 233,237" fill="none" stroke="#A9704C" stroke-width="3" stroke-linecap="round"/>
 <g transform="translate(250,262) rotate(-6)"><path d="M10,150 L22,92 H86 L96,150 Z" fill="#111111"/><rect x="8" y="34" width="82" height="66" rx="24" fill="#C88B63"/><path d="M14,46 C10,20 22,-2 38,-2 C52,-2 56,12 50,28 L46,40 Z" fill="#C88B63"/><path d="M26,58 Q48,52 84,58 M24,76 Q48,70 84,76" fill="none" stroke="#A9704C" stroke-width="3.5" stroke-linecap="round"/><path d="M50,28 Q52,36 46,42" fill="none" stroke="#A9704C" stroke-width="3" stroke-linecap="round"/></g>
-<g transform="translate(232,348) scale(.17)"><path d="M9.5,0 H75 L106,44.7 V107 H24 A24,24 0 0 1 0,83 V72 Q0,68 4,68 H28 Q32,68 32,72 V79 Q32,83 36,83 H74.5 V24 H9.5 Z" fill="#E9E9EB"/><path d="M79,0 H119 L171,76 L224,0 H262 L188,108 H154 Z" fill="#FC6701"/></g></svg></span>Fale com a Jotav</a>
+<g transform="translate(232,348) scale(.17)"><path d="M9.5,0 H75 L106,44.7 V107 H24 A24,24 0 0 1 0,83 V72 Q0,68 4,68 H28 Q32,68 32,72 V79 Q32,83 36,83 H74.5 V24 H9.5 Z" fill="#E9E9EB"/><path d="M79,0 H119 L171,76 L224,0 H262 L188,108 H154 Z" fill="#FC6701"/></g></svg></span><span class="wa-txt">Fale com a Jotav</span><svg class="wa-ico" viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
 
 
 
@@ -990,7 +1011,7 @@ document.getElementById("rprev").onclick=()=>rv_.scrollBy({left:-320,behavior:"s
 document.getElementById("rnext").onclick=()=>rv_.scrollBy({left:320,behavior:"smooth"});
 
 // faixa de clientes: duplica para o loop contínuo
-(()=>{const tr=document.querySelector(".mtrack"); if(!tr) return; [...tr.children].forEach(f=>{const c=f.cloneNode(true); c.setAttribute("aria-hidden","true"); c.querySelector("img").alt=""; tr.appendChild(c);});})();
+(async()=>{const tr=document.querySelector(".mtrack"); if(!tr) return; try{const r=await fetch("/dados/clientes.json",{cache:"no-cache"}); if(r.ok){const f=((await r.json()).fotos||[]).filter(x=>x&&x.imagem); if(f.length) tr.innerHTML=f.map(x=>`<figure><img src="${esc(x.imagem)}" alt="${esc(x.descricao||"Cliente da Jotav")}" loading="lazy"></figure>`).join("");}}catch(e){} [...tr.children].forEach(f=>{const c=f.cloneNode(true); c.setAttribute("aria-hidden","true"); c.querySelector("img").alt=""; tr.appendChild(c);});})();
 
 // menu
 const mb=document.querySelector(".menu-btn");
