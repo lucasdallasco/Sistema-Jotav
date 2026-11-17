@@ -207,7 +207,8 @@
           "preco": 1999.9
         }
       ],
-      "ordem": 70
+      "ordem": 70,
+      "ativo": false
     },
     {
       "nome": "iPhone 11",
