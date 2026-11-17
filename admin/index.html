@@ -163,6 +163,13 @@ body.sujo .demo{bottom:100px}
 .gfoto .ctl button{width:38px;height:38px;border-radius:50%;border:0;background:rgba(255,255,255,.92);cursor:pointer;font-size:16px;color:var(--tinta);box-shadow:0 1px 4px rgba(0,0,0,.2)}
 .gfoto .ctl .del{color:#C0362C}
 .gfoto .n{position:absolute;top:8px;left:8px;background:rgba(0,0,0,.6);color:#fff;font-size:12px;font-weight:600;border-radius:999px;padding:3px 9px}
+.save{padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+.app{padding-bottom:200px}
+.relogin{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.55);display:flex;align-items:flex-end;justify-content:center;padding:16px}
+.rbox{width:100%;max-width:480px;background:#fff;border-radius:28px;padding:26px 22px calc(20px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:12px;margin-bottom:70px}
+.rbox h3{margin:0;font-size:20px}.rbox p{margin:0;color:var(--suave);font-size:14px}
+.rbox .err{color:#C0362C;min-height:18px}
+.rbox .link{background:none;border:0;color:var(--suave);font-size:14px;text-decoration:underline;cursor:pointer;padding:6px}
 .quem{font-size:13px;color:var(--suave);text-align:center;margin-top:8px}
 </style>
 </head>
@@ -217,9 +224,9 @@ async function idReq(path,opt={}){
 }
 const form = o => Object.entries(o).map(([k,v])=>encodeURIComponent(k)+"="+encodeURIComponent(v)).join("&");
 async function entrar(email,senha){ guardarSessao(await idReq("/token",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:form({grant_type:"password",username:email,password:senha})})); }
-async function token(){
+async function token(forcar){
   if(!sessao) throw Object.assign(new Error("Sessão expirada"),{sessao:true});
-  if(Date.now()>sessao.expira){
+  if(forcar || Date.now()>sessao.expira){
     try{ guardarSessao(await idReq("/token",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:form({grant_type:"refresh_token",refresh_token:sessao.refresh_token})})); }
     catch(e){ esquecerSessao(); throw Object.assign(new Error("Sessão expirada"),{sessao:true}); }
   }
@@ -228,10 +235,14 @@ async function token(){
 async function idAuth(path,opt={}){ const t=await token(); return idReq(path,{...opt,headers:{"Authorization":"Bearer "+t,"Content-Type":"application/json"}}); }
 
 /* ===== GitHub via Git Gateway ===== */
-async function git(path,opt={}){
+async function git(path,opt={},tentativa=0){
   const t=await token();
   const r=await fetch(GIT+path,{cache:"no-store",...opt,headers:{"Authorization":"Bearer "+t,"Content-Type":"application/json"}});
-  if(r.status===401){ esquecerSessao(); throw Object.assign(new Error("Sessão expirada"),{sessao:true}); }
+  if(r.status===401){
+    if(tentativa===0){ await token(true); return git(path,opt,1); }
+    const tx=await r.text().catch(()=> "");
+    throw Object.assign(new Error("Git Gateway 401 "+tx.slice(0,160)),{gateway:true});
+  }
   if(!r.ok){ const tx=await r.text().catch(()=> ""); throw new Error("GitHub "+r.status+" "+tx.slice(0,160)); }
   return r.status===204?null:r.json();
 }
@@ -249,7 +260,7 @@ async function commitar(arquivos,mensagem){
 /* ===== Estado ===== */
 let base=null, estado=null, outrosVitrine={}, original={}, fotos={};
 let tela={nome:"carregando"}, rascunho=null, filtro="todos", busca="", mServ=0, sujo=false, publicando=false;
-let convite=null, erroLogin="", ultimoEmail="";
+let convite=null, erroLogin="", ultimoEmail="", precisaLogin=false;
 
 function serializar(st){
   return {
@@ -453,7 +464,8 @@ const root=document.getElementById("root");
 const TELAS_FORA=["carregando","falha","login","esqueci","senha"];
 function render(){
   root.innerHTML = TELAS_FORA.includes(tela.nome) ? T[tela.nome]() : `<div class="app">${T[tela.nome]()}</div>
-    <div class="save ${sujo?"show":""}" id="save"><div class="in"><p>${publicando?"Publicando…":"Alterações não publicadas"}</p><button class="btn sec" data-descartar="1" ${publicando?"disabled":""}>Descartar</button><button class="btn or" data-publicar="1" ${publicando?"disabled":""}>Publicar</button></div></div>`;
+    <div class="save ${sujo?"show":""}" id="save"><div class="in"><p>${publicando?"Publicando…":"Alterações não publicadas"}</p><button class="btn sec" data-descartar="1" ${publicando?"disabled":""}>Descartar</button><button class="btn or" data-publicar="1" ${publicando?"disabled":""}>Publicar</button></div></div>
+    ${precisaLogin?`<div class="relogin"><form class="rbox" data-form="relogin"><h3>Entre de novo para publicar</h3><p>Seu acesso venceu. As alterações que você fez continuam aqui.</p><input class="inp" type="email" name="email" placeholder="E-mail" autocomplete="username" value="${esc(ultimoEmail||(usuario&&usuario.email)||"")}" required><input class="inp" type="password" name="senha" placeholder="Senha" autocomplete="current-password" required><p class="err">${esc(erroLogin)}</p><button class="btn or" type="submit">Entrar e publicar</button><button class="link" type="button" data-fecharlogin="1">Agora não</button></form></div>`:""}`;
   const b=document.getElementById("busca"); if(b){ b.oninput=e=>{busca=e.target.value; const pos=e.target.selectionStart; render(); const nb=document.getElementById("busca"); nb.focus(); nb.setSelectionRange(pos,pos);}; }
 }
 function marcarSujo(v=true){ sujo=v; const s=document.getElementById("save"); if(s) s.classList.toggle("show",v); }
@@ -511,8 +523,10 @@ async function publicar(){
     toast("Publicado. O site atualiza em 1 a 2 minutos.");
   }catch(e){
     publicando=false; render();
-    if(e.sessao){ toast("Sua sessão expirou. Entre de novo e publique outra vez.",true); return; }
-    toast("Não deu para publicar. Verifique a internet e tente de novo.",true); console.error(e);
+    console.error(e);
+    if(e.sessao){ precisaLogin=true; erroLogin=""; render(); return; }
+    if(e.gateway){ toast("O Netlify recusou a gravação no GitHub. Suas alterações continuam aqui. Avise a Dallas.",true); return; }
+    toast("Não deu para publicar ("+String(e.message||"erro").slice(0,60)+"). Suas alterações continuam aqui.",true);
   }
 }
 
@@ -524,6 +538,10 @@ root.addEventListener("submit",async e=>{
     if(f.dataset.form==="login"){
       await entrar(fd.get("email").trim(),fd.get("senha"));
       await carregar(); return;
+    }
+    if(f.dataset.form==="relogin"){
+      await entrar(fd.get("email").trim(),fd.get("senha"));
+      precisaLogin=false; render(); publicar(); return;
     }
     if(f.dataset.form==="esqueci"){
       await idReq("/recover",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:fd.get("email").trim()})});
@@ -542,7 +560,7 @@ root.addEventListener("submit",async e=>{
     }
   }catch(err){
     const m=String(err.message||"");
-    erroLogin = /invalid|password|no user/i.test(m) ? (f.dataset.form==="login"?"E-mail ou senha incorretos.":"Link inválido ou expirado. Peça um novo.")
+    erroLogin = /invalid|password|no user/i.test(m) ? (f.dataset.form==="login"||f.dataset.form==="relogin"?"E-mail ou senha incorretos.":"Link inválido ou expirado. Peça um novo.")
       : /not.*confirm/i.test(m) ? "Esse acesso ainda não foi confirmado pelo e-mail."
       : m || "Algo deu errado. Tente de novo.";
     render();
@@ -552,6 +570,7 @@ root.addEventListener("submit",async e=>{
 root.addEventListener("click",e=>{
   const t=e.target.closest("button,[data-go]"); if(!t||t.getAttribute("type")==="submit") return;
   const d=t.dataset;
+  if(d.fecharlogin){ precisaLogin=false; erroLogin=""; render(); return; }
   if(d.esqueci){ erroLogin=""; tela={nome:"esqueci"}; render(); return; }
   if(d.voltarlogin){ erroLogin=""; tela={nome:"login"}; render(); return; }
   if(d.recarregar){ carregar(); return; }
