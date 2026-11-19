@@ -111,7 +111,12 @@
           "cor": "#5B6145"
         }
       ],
-      "capacidades": [],
+      "capacidades": [
+        {
+          "capacidade": "",
+          "preco": 2499.9
+        }
+      ],
       "ordem": 30
     },
     {
